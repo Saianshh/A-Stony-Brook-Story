@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+# A-Stony-Brook-Story
+SBUHacks 2022 Project -- A Student Fights His Way to Graduation!  
+Developed by Sai Chaddha, Mahir Alam, Ronith Mudhuganti, and Tahir Tuzun.
+=======
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +73,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+>>>>>>> 562f71afe2849420ed97a9d150ea1aebe13c3084
