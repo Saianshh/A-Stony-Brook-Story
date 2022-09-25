@@ -32,6 +32,22 @@ const Console = (props) => {
       <Senior setSenior={setSenior} setWinner={setWinner} setLoser={setLoser}/>
     );
   }
+  else if (winner) {
+    return (
+      <div className="console">
+        <h1>YOU WIN!</h1>
+        <p>Refresh to play again</p>
+      </div>
+    );
+  }
+  else if (loser) {
+    return (
+      <div className="console">
+        <h1>YOU LOSE!</h1>
+        <p>Refresh to play again</p>
+      </div>
+    );
+  }
 }
 
 export default Console;

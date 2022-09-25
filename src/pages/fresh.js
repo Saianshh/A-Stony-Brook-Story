@@ -17,7 +17,7 @@ const Freshman = (props) => {
     let pond = new Image();
     pond.src = "http://localhost:7000/rothpond.png";
     pond.onload = () => {
-      context.drawImage(pond, 0, 0, 1000, 500);
+      context.drawImage(pond, 0, 0, 1000, 640);
     }
     class Wolfie {
       constructor() {
@@ -31,7 +31,7 @@ const Freshman = (props) => {
         image.onload = () => {
           this.image = image;
           this.width = image.width - 60;
-          this.height = image.height - 130;
+          this.height = image.height - 100;
           this.position = {
             x: 0,
             y: canvas.height / 2 - this.height / 2
@@ -79,53 +79,93 @@ const Freshman = (props) => {
       }
       draw (positionx) {
         if(this.image) {
-        //   const render = () => {
-        //   context.drawImage(pond, 0, 0);
-        //   context.beginPath();
-        //   context.drawImage(this.image, 
-        //     this.position.x, 
-        //     this.position.y, 
-        //     );
-        //   requestAnimationFrame(render)
-        //   }
-        //   render()
-        // }
-
-
-
-
+          this.position.x = positionx;
           context.drawImage(
             this.image, 
             positionx, 
             this.position.y,
-            100,
-            100);
-          }
+            this.width,
+            this.height);
+        }
       }
     }
 
   const wolfie = new Wolfie();
+  const keysPressed = {
+    ArrowUp: {
+      pressed: false,
+    },
+    ArrowDown: {
+      pressed: false
+    }
+  }
   const germ = new Germ(100);
   const germ2 = new Germ(350);
 
     let x = 1000
     function animate() {
+      requestAnimationFrame(animate);
       x = x-5
       context.clearRect(0, 0, canvas.width, canvas.height);
-      context.drawImage(pond, 0, 0, 1000, 500);
+      context.drawImage(pond, 0, 0, 1000, 640);
       wolfie.update();
       germ.draw(x)
       germ2.draw(x)
-      requestAnimationFrame(animate);
+      if(keysPressed.ArrowUp.pressed && wolfie.position.y > 0) {
+        wolfie.velocity.y -= 0.75;
+      } else if (keysPressed.ArrowDown.pressed && wolfie.position.y < canvas.height - wolfie.height) {
+        wolfie.velocity.y += 0.75;
+      } else {
+        wolfie.velocity.y = 0;
+      }
+      // if(wolfie.position !== undefined) {
+      //   //console.log("EXISTS");
+      //   console.log(wolfie.position.y);
+      //   if(germ.position.x + germ.width <= wolfie.position.x + wolfie.width && germ.position.y >= wolfie.position.y + wolfie.height && germ.position.y + germ.height <= wolfie.position.y) {
+      //     console.log("LOSER");
+      //     props.setLoser(true);
+      //   }
+      //   if(germ2.position.x + germ2.width <= wolfie.position.x + wolfie.width && germ2.position.y >= wolfie.position.y + wolfie.height && germ2.position.y + germ2.height <= wolfie.position.y) {
+      //     console.log("LOSER");
+      //     props.setLoser(true);
+      //   }
+      // }
+
+
+
+      if(wolfie.position !== undefined) {
+        //console.log("WOLFIE X:", wolfie.position.x, "WOLFIE Y:", wolfie.position.y, "GERM 1 X:", germ.position.x, "GERM 1 Y:", germ.position.y, "GERM 2 X:", germ2.position.x, "GERM 2 Y:", germ2.position.y);
+        //console.log(wolfie.position.y);
+
+        let suby = Math.abs(germ.position.y - wolfie.position.y)
+        let suby2 = Math.abs(germ2.position.y - wolfie.position.y)
+        //console.log("SUBY1", suby)
+        //console.log("SUBY2", suby2)
+        if(suby <= 100 && germ.position.x == 0) {
+         //console.log("LOSER");
+          props.setLoser(true);
+        }
+        if(suby2 <= 100 && germ2.position.x == 0) {
+          console.log("LOSER");
+          props.setLoser(true);
+        }
+      }
+
     }
     animate();
+
     window.addEventListener('keydown', ({key}) => {
       if(key == 'ArrowUp') {
-        console.log("UP");
-        wolfie.velocity.y -= 5;
+        keysPressed.ArrowUp.pressed = true;
       } else if (key === 'ArrowDown') {
-        console.log("DOWN");
-        wolfie.velocity.y += 5;
+        keysPressed.ArrowDown.pressed = true;
+      }
+    });
+    window.addEventListener('keyup', ({key}) => {
+      if(key == 'ArrowUp') {
+        keysPressed.ArrowUp.pressed = false;
+      } else if (key === 'ArrowDown') {
+        keysPressed.ArrowDown.pressed = false;
       }
     });
 
@@ -136,8 +176,8 @@ const Freshman = (props) => {
 
   return (
   <>
-    <h1 style={{textAlign: 'center'}}> Survive the Germs of Roth Pond... </h1>
-    <canvas ref={canvasRef} width='1000px' height='500px'/>
+    <h1 style={{textAlign: 'center', fontSize:"250%", color: 'white'}}> Survive the Germs of Roth Pond... </h1>
+    <canvas ref={canvasRef} width='1000px' height='640px'/>
   </>
   );
 }
