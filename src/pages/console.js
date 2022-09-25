@@ -1,6 +1,6 @@
 import React from 'react'
 import {useRef, useEffect, useState} from 'react'
-import unionPic from '../img/union.png';
+import rothPond from '../img/rothpond.png';
 import '../console.css';
 import Freshman from './fresh.js';
 import Sophomore from './soph.js';
