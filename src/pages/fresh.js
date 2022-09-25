@@ -84,7 +84,7 @@ const Freshman = (props) => {
         }
 
       }
-      draw (positionx) {
+      draw (positionx, positiony) {
         if(this.image) {
         //   const render = () => {
         //   context.drawImage(pond, 0, 0);
@@ -104,30 +104,51 @@ const Freshman = (props) => {
           context.drawImage(
             this.image, 
             positionx, 
-            this.position.y,
-            100,
+            positiony,
+             100,
             100);
           }
       }
     }
 
-    debugger;
     const wolfie = new Wolfie();
-    const germ = new Germ(100);
-    const germ2 = new Germ(350);
+    let x1 = 1000
+    let x2 = 1000
+    let x3 = 1000
+    let y1 = Math.floor(Math.random()*400);
+    let y2 = Math.floor(Math.random()*400);
+    let y3 = Math.floor(Math.random()*400);
 
-    let x = 1000
+    const germ1 = new Germ(y1);
+    const germ2 = new Germ(y2);
+    const germ3 = new Germ(y3);
     function animate() {
-      x = x-5
+      if(x1 == 0){
+        x1 = 1000
+        y1 = Math.floor(Math.random()*100);
+      }
+      if(x2 == 0){
+        x2 = 1000
+        y2 = Math.floor(Math.random()*200);
+      }
+      if(x3 == 0){
+        x3 = 1000
+        y3 = Math.floor(Math.random()*300);
+      }
+      x1 = x1-13
+      x2 = x2-10
+      x3 = x3-8
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.drawImage(pond, 0, 0, 1000, 500);
       wolfie.draw();
-      germ.draw(x)
-      germ2.draw(x)
+      germ1.draw(x1, y1)
+      germ2.draw(x2, y2)
+      germ3.draw(x3, y3)
       requestAnimationFrame(animate);
     }
 
-    animate();
+    animate()
+
 
 
 
