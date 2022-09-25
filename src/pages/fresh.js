@@ -7,12 +7,9 @@ import '../console.css';
 const Freshman = (props) => {
   // const [background, setBackground] = useState(false);
   const canvasRef = useRef();
-  const [x, setX] = useState(0);
 
-  const handleClick = (x) => {
-    setX(x+1);
-  }
-  
+  // MIGHT CALL USESTATE WITH X AND THEN USEEFFECT PARAM
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
@@ -24,158 +21,69 @@ const Freshman = (props) => {
     }
     class Wolfie {
       constructor() {
-        this.position = {
-          x: 0,
-          y: 200
-        }
         this.velocity = {
           x: 0,
           y: 0
       }
-      const image = new Image();
-      image.src = "http://localhost:7000/wolfie.png";
+        const image = new Image();
+        image.src = "http://localhost:7000/wolfie.png";
 
         image.onload = () => {
           this.image = image;
-          this.width = 100;
-          this.height = 100;
+          this.width = image.width - 60;
+          this.height = image.height - 130;
+          this.position = {
+            x: 0,
+            y: canvas.height / 2 - this.height / 2
+          }
         }
 
       }
       draw () {
+        context.drawImage(
+          this.image, 
+          this.position.x, 
+          this.position.y,
+          this.width,
+          this.height);
+      }
+
+      update() {
         if(this.image) {
-        //   const render = () => {
-        //   context.drawImage(pond, 0, 0);
-        //   context.beginPath();
-        //   context.drawImage(this.image, 
-        //     this.position.x, 
-        //     this.position.y, 
-        //     );
-        //   requestAnimationFrame(render)
-        //   }
-        //   render()
-        // }
-
-
-
-
-          context.drawImage(
-            this.image, 
-            this.position.x, 
-            this.position.y,
-            100,
-            100);
-          }
+          this.draw();
+          this.position.x += this.velocity.x;
+          this.position.y += this.velocity.y;
+        }
       }
     }
 
-    debugger;
     const wolfie = new Wolfie();
-    wolfie.draw();
 
     function animate() {
       context.clearRect(0, 0, canvas.width, canvas.height);
-      context.drawImage(pond, 0, 0);
-      wolfie.draw();
+      context.drawImage(pond, 0, 0, 1000, 500);
+      wolfie.update();
       requestAnimationFrame(animate);
     }
-
     animate();
+    window.addEventListener('keydown', ({key}) => {
+      if(key == 'ArrowUp') {
+        console.log("UP");
+        wolfie.velocity.y -= 5;
+      } else if (key === 'ArrowDown') {
+        console.log("DOWN");
+        wolfie.velocity.y += 5;
+      }
+    });
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // const canvas = canvasRef.current;
-    // const context = canvas.getContext('2d');
-    // // canvas.width = 800;
-    // // canvas.height = window.innerHeight * .80;
-    // let union = new Image();
-    // let wolfieImage = new Image();
-    // //union.src = unionPic;
-    // union.src = "http://localhost:7000/rothpond.png";
-    // union.onload = () => {
-    //   context.drawImage(union, 0, 0, 500, 800);
-    // }
-    // //wolfieImage.src = wolfie;
-    // wolfieImage.src = "http://localhost:7000/wolfie.png";
-    // wolfieImage.onload = () => {
-    //   const render = () => {
-    //   context.drawImage(union, 0, 0, window.innerWidth, window.innerHeight * 1.5);
-    //   context.beginPath();
-    //   context.drawImage(wolfieImage, x, 0, window.innerWidth / 2, window.innerHeight / 1.5);
-    //   requestAnimationFrame(render)
-    //   }
-    //   render()
-    // }
-   // union.src = unionPic;
-    // union.onload = () => {
-    //   //context.drawImage(union, 0, 0, canvas.width, canvas.height);
-    // }
-    // class Wolfie {
-    //     image = new Image();
-    //     constructor(x, y) {
-    //         this.position = {
-    //             x: x,
-    //             y: y
-    //         }
-    //         //this.image.src = wolfie;
-    //         // this.image.onload = () => {
-    //         //   
-    //         //     this.width = 200;
-    //         //     this.height = 200;
-    //         // }
-    //     }
-    //     draw() {
-    //         if(this.image) {                 
-    //             if(background === false) {
-    //               union.onload = () => {
-    //                 context.drawImage(union, 0, 0, canvas.width, canvas.height);
-    //                 setBackground(true);
-    //               }
-    //             }
-    //             union.src = unionPic;
-    //             this.image.onload = () => {
-                      
-    //                   this.width = 200;
-    //                   this.height = 200;
-    //                   context.drawImage(this.image, 0, 0, 150, 200);
-    //             }
-    //             this.image.src = wolfie;
-    //             /*context.drawImage(
-    //                 this.image, 
-    //                 this.position.x, 
-    //                 this.position.y, 
-    //                 this.width, 
-    //                 this.height);
-    //                 */
-    //         }
-    //     }
-    // }
-    // debugger;
-    // const wolfie1 = new Wolfie(window.innerWidth / 2, window.innerHeight / 2);
-    // wolfie1.draw();
     }, []);
 
   return (
   <>
-    <h1 style={{textAlign: 'center'}}> Level 1: Freshman </h1>
+    <h1 style={{textAlign: 'center'}}> Survive the Germs of Roth Pond... </h1>
     <canvas ref={canvasRef} width='1000px' height='500px'/>
   </>
   );
