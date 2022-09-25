@@ -1,0 +1,29 @@
+.background{
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 600px;
+    background-position: center;
+}
+
+  @keyframes jump {
+    0% {margin-left:0px}
+    50% {margin-left:50px}
+    100% {margin-left:0px}
+  }
+
+  @keyframes appear {
+    0% {margin-top: -1000px;}
+    100% {margin-top: 170px;}
+  }
+
+  .title{
+    animation-name: appear;
+    animation-duration: 3s;
+  }
+  
+  .button{
+    height: 150px;
+    animation-name: jump;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
