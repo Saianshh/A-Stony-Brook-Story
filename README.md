@@ -1,8 +1,11 @@
 <<<<<<< HEAD
 # A-Stony-Brook-Story
 SBUHacks 2022 Project -- A Student Fights His Way to Graduation!  
-Developed by Sai Chaddha, Mahir Alam, Ronith Mudhuganti, and Tahir Tuzun.
+Developed by Sai Chaddha, Mahir Alam, and Ronith Mudhuganti.  
+Full version temporarily on: https://github.com/mahir-41/A-Stony-Brook-Story  
+
 =======
+Full version coming soon!
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
